@@ -8,6 +8,28 @@ janela.title("APP DE TAREFAS") #-->  configurando o titulo da janela
 janela.configure(bg="#F0F0F0") #--> defindo uma cor padrão para o fundo da janela
 janela.geometry("500x600") #-->Passando as dimensões da janela 
 
+frameEdicao = None # --> toda vez que vamos editar a tarefa, precisamos de um framr
+#Função para add tarefa
+def adicionarTarefa():
+    global frameEdicao
+    tarefa = entradaTarefa.get().strip()
+    if tarefa and tarefa != "Escreva sua tarefa aqui":
+        if frameEdicao is not None:
+            atualizarTarefa(tarefa)
+            frameEdicao = None
+        else:
+            adicionarItemTarefa(tarefa)
+            entradaTarefa.delete(0, tk.END)
+    else:
+        messagebox.showwarning("Entrada Inválida", "Por favor, insira uma tarefa." )
+        
+def adicionarItemTarefa(entrada):
+    frameTarefa = tk.frame(canvasInterior, bg="White, bd=1, relief= tk.SOLID")        
+    labelTarefa = tk.Label(frameTarefa, text=tarefa, font=("Garamond", 16), bg="white", width=25, height=2, anchor="w")
+    labelTarefa.pack(side=tk.LEFT, fill=tk.X, padx=10, pady= 5)
+    botaoEditar = tk.Button(frameTarefa, image=iconEditar)
+    
+    
 cabecalho = font.Font(family="Garamond", size= 24, weight="bold") #--> Estou especificando a font do titulo
 cabecalho = tk.Label(janela, text= "APP DE TAREFAS", font=cabecalho, bg="#F0F0F0", fg= "#333").pack(pady=20)#--> passando as especificações do que sera escrito 
 
